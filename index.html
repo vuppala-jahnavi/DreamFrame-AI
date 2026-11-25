@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DreamFrame AI - Creative Studio</title>
+
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
+
+body {
+  color: white;
+  background: #090817;
+}
+
+.page {
+  min-height: 100vh;
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  display: none;
+  position: relative;
+}
+
+.page.active {
+  display: block;
+}
+
+.overlay {
+  min-height: 100vh;
+  background: rgba(8, 7, 25, 0.78);
+}
+
+.home-bg {
+  background-image: url("https://images.unsplash.com/photo-1462331940025-496dfbfc7564?w=1800");
+}
+
+.login-bg {
+  background-image: url("https://images.unsplash.com/photo-1519608487953-e999c86e7455?w=1600");
+}
+
+.signup-bg {
+  background-image: url("https://images.unsplash.com/photo-1534796636912-3b95b3ab5986?w=1600");
+}
+
+.logout-bg {
+  background-image: url("https://images.unsplash.com/photo-1470770841072-f978cf4d019e?w=1600");
+}
+
+.studio-bg {
+  background-image: url("https://images.unsplash.com/photo-1519608487953-e999c86e7455?w=1600");
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 22px 7%;
+  background: rgba(12, 10, 35, 0.8);
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.logo {
+  font-size: 25px;
+  font-weight: bold;
+  color: #d4adff;
+}
+
+nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 18px;
+}
+
+nav a {
+  color: white;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+nav a:hover {
+  color: #d9a8ff;
+}
+
+.hero {
+  text-align: center;
+  padding: 110px 20px;
+}
+
+.hero h1 {
+  font-size: clamp(35px, 7vw, 65px);
+  color: #e0c5ff;
+  margin-bottom: 20px;
+}
+
+.hero p {
+  font-size: 18px;
+  margin: 15px auto 30px;
+  max-width: 650px;
+  line-height: 1.6;
+}
+
+.btn {
+  background: linear-gradient(90deg, #7545ff, #d34cdd);
+  border: none;
+  color: white;
+  padding: 13px 25px;
+  border-radius: 30px;
+  font-size: 15px;
+  cursor: pointer;
+  margin: 5px;
+}
+
+.btn:hover {
+  opacity: 0.85;
+}
+
+.section {
+  padding: 55px 7%;
+  text-align: center;
+}
+
+.section h2 {
+  font-size: 32px;
+  color: #d9baff;
+  margin-bottom: 30px;
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 22px;
+}
+
+.card {
+  background: rgba(27, 22, 57, 0.88);
+  border: 1px solid #7352a8;
+  padding: 30px 20px;
+  border-radius: 18px;
+  backdrop-filter: blur(10px);
+}
+
+.card .emoji {
+  font-size: 45px;
+  margin-bottom: 15px;
+}
+
+.card h3 {
+  margin-bottom: 12px;
+  color: #e1caff;
+}
+
+.card p {
+  color: #d0c7e8;
+  line-height: 1.6;
+  margin-bottom: 18px;
+}
+
+.panel {
+  width: min(90%, 500px);
+  margin: 65px auto;
+  padding: 35px;
+  background: rgba(20, 16, 48, 0.92);
+  border: 1px solid #8061b8;
+  border-radius: 20px;
+  text-align: center;
+  backdrop-filter: blur(12px);
+}
+
+.panel h2 {
+  color: #e0c2ff;
+  font-size: 30px;
+  margin-bottom: 20px;
+}
+
+input, textarea, select {
+  width: 100%;
+  padding: 14px;
+  margin: 10px 0;
+  border-radius: 10px;
+  border: 1px solid #8061b8;
+  background: #100d25;
+  color: white;
+  font-size: 15px;
+}
+
+textarea {
+  min-height: 110px;
+}
+
+input[type="file"] {
+  font-size: 13px;
+}
+
+#preview {
+  max-width: 100%;
+  max-height: 300px;
+  margin: 15px auto;
+  display: none;
+  border-radius: 12px;
+}
+
+footer {
+  text-align: center;
+  padding: 25px;
+  background: rgba(12, 10, 35, 0.9);
+  color: #d0c7e8;
+}
+
+.small-text {
+  color: #c9bddf;
+  margin-top: 20px;
+}
+
+a {
+  color: #d8b7ff;
+}
+
+#status {
+  margin-top: 18px;
+  color: #d8b7ff;
+  line-height: 1.5;
+}
+
+@media(max-width:600px) {
+  header {
+    justify-content: center;
+  }
+
+  nav {
+    justify-content: center;
+  }
+
+  .hero {
+    padding: 75px 15px;
+  }
+
+  .panel {
+    padding: 25px 18px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<!-- HOMEPAGE -->
+<div id="home" class="page home-bg active">
+<div class="overlay">
+
+<header>
+  <div class="logo">✨ DreamFrame AI</div>
+  <nav>
+    <a onclick="showPage('home')">Home</a>
+    <a onclick="showPage('studio')">Create</a>
+    <a onclick="showPage('login')">Login</a>
+    <a onclick="showPage('signup')">Sign Up</a>
+    <a onclick="showPage('logout')">Logout</a>
+  </nav>
+</header>
+
+<section class="hero">
+  <h1>Dream Big. Create More.</h1>
+  <p>
+    Transform your photos, videos and imagination
+    into beautiful creative experiences with DreamFrame AI.
+  </p>
+  <button class="btn" onclick="showPage('studio')">
+    Start Creating ✨
+  </button>
+</section>
+
+<section class="section">
+  <h2>Welcome to DreamFrame AI</h2>
+  <div class="cards">
+
+    <div class="card">
+      <div class="emoji">🖼️</div>
+      <h3>Photo to Photo</h3>
+      <p>Upload a photo and describe your new photo idea.</p>
+      <button class="btn" onclick="selectMode('Photo to Photo')">Try Now</button>
+    </div>
+
+    <div class="card">
+      <div class="emoji">📸</div>
+      <h3>Photo to Video</h3>
+      <p>Turn your photo into a creative video.</p>
+      <button class="btn" onclick="selectMode('Photo to Video')">Try Now</button>
+    </div>
+
+    <div class="card">
+      <div class="emoji">🎬</div>
+      <h3>Video to Video</h3>
+      <p>Transform your video using a creative prompt.</p>
+      <button class="btn" onclick="selectMode('Video to Video')">Try Now</button>
+    </div>
+
+    <div class="card">
+      <div class="emoji">✨</div>
+      <h3>Text to Video</h3>
+      <p>Create a video from your imagination and text.</p>
+      <button class="btn" onclick="selectMode('Text to Video')">Try Now</button>
+    </div>
+
+  </div>
+</section>
+
+<footer>
+  <p>DreamFrame AI © 2026</p>
+  <p>Your Dreams. Our AI Magic.</p>
+</footer>
+
+</div>
+</div>
+
+<!-- LOGIN PAGE -->
+<div id="login" class="page login-bg">
+<div class="overlay">
+
+<header>
+  <div class="logo">✨ DreamFrame AI</div>
+  <nav>
+    <a onclick="showPage('home')">Home</a>
+    <a onclick="showPage('signup')">Sign Up</a>
+  </nav>
+</header>
+
+<div class="panel">
+  <h2>Welcome Back!</h2>
+  <p>Login to DreamFrame AI</p>
+
+  <form onsubmit="demoLogin(event)">
+    <input type="email" id="loginEmail" placeholder="Email Address" required>
+    <input type="password" id="loginPassword" placeholder="Password" required>
+    <button class="btn" type="submit">Login</button>
+  </form>
+
+  <p class="small-text">
+    Don't have an account?
+    <a onclick="showPage('signup')">Create Account</a>
+  </p>
+</div>
+
+</div>
+</div>
+
+<!-- SIGNUP PAGE -->
+<div id="signup" class="page signup-bg">
+<div class="overlay">
+
+<header>
+  <div class="logo">✨ DreamFrame AI</div>
+  <nav>
+    <a onclick="showPage('home')">Home</a>
+    <a onclick="showPage('login')">Login</a>
+  </nav>
+</header>
+
+<div class="panel">
+  <h2>Create Account</h2>
+  <p>Join DreamFrame AI</p>
+
+  <form onsubmit="demoSignup(event)">
+    <input type="text" placeholder="Full Name" required>
+    <input type="email" placeholder="Email Address" required>
+    <input type="password" placeholder="Create Password" minlength="8" required>
+    <button class="btn" type="submit">Sign Up</button>
+  </form>
+
+  <p class="small-text">
+    Already have an account?
+    <a onclick="showPage('login')">Login</a>
+  </p>
+</div>
+
+</div>
+</div>
+
+<!-- LOGOUT PAGE -->
+<div id="logout" class="page logout-bg">
+<div class="overlay">
+
+<header>
+  <div class="logo">✨ DreamFrame AI</div>
+</header>
+
+<div class="panel">
+  <h2>See You Again! 💜</h2>
+  <p>You have reached the logout screen.</p>
+  <p class="small-text">Keep Creating. Keep Dreaming.</p>
+  <button class="btn" onclick="showPage('home')">
+    Return Home
+  </button>
+</div>
+
+</div>
+</div>
+
+<!-- AI STUDIO PAGE -->
+<div id="studio" class="page studio-bg">
+<div class="overlay">
+
+<header>
+  <div class="logo">✨ DreamFrame AI Studio</div>
+  <nav>
+    <a onclick="showPage('home')">Home</a>
+    <a onclick="showPage('logout')">Logout</a>
+  </nav>
+</header>
+
+<div class="section">
+  <h2>Create Your Magic ✨</h2>
+
+  <div class="panel">
+    <label>Select Creation Mode</label>
+    <select id="mode">
+      <option>Photo to Photo</option>
+      <option>Photo to Video</option>
+      <option>Video to Video</option>
+      <option>Text to Video</option>
+    </select>
+
+    <label>Upload Photo or Video</label>
+    <input type="file" id="media" accept="image/*,video/*">
+
+    <img id="preview" alt="Uploaded image preview">
+
+    <label>Enter Your Creative Prompt</label>
+    <textarea id="prompt" placeholder="Describe what you want to create..."></textarea>
+
+    <button class="btn" onclick="generateDemo()">
+      Generate ✨
+    </button>
+
+    <p id="status">Your creative journey starts here!</p>
+  </div>
+</div>
+
+<footer>
+  DreamFrame AI - Create Without Limits
+</footer>
+
+</div>
+</div>
+
+<script>
+function showPage(pageId) {
+  document.querySelectorAll(".page").forEach(page => {
+    page.classList.remove("active");
+  });
+
+  document.getElementById(pageId).classList.add("active");
+  window.scrollTo(0, 0);
+}
+
+function selectMode(mode) {
+  showPage("studio");
+  document.getElementById("mode").value = mode;
+}
+
+function demoLogin(event) {
+  event.preventDefault();
+  alert("This is a demo login screen. Real account authentication is not connected yet.");
+}
+
+function demoSignup(event) {
+  event.preventDefault();
+  alert("This is a demo signup screen. Real account creation is not connected yet.");
+}
+
+const mediaInput = document.getElementById("media");
+
+mediaInput.addEventListener("change", function() {
+  const file = this.files[0];
+  const preview = document.getElementById("preview");
+
+  if (file && file.type.startsWith("image/")) {
+    preview.src = URL.createObjectURL(file);
+    preview.style.display = "block";
+  } else {
+    preview.style.display = "none";
+  }
+});
+
+function generateDemo() {
+  const prompt = document.getElementById("prompt").value.trim();
+  const mode = document.getElementById("mode").value;
+  const file = document.getElementById("media").files[0];
+
+  if (!prompt) {
+    alert("Please enter your creative prompt!");
+    return;
+  }
+
+  if (mode !== "Text to Video" && !file) {
+    alert("Please upload a photo or video first!");
+    return;
+  }
+
+  document.getElementById("status").textContent =
+    "Your " + mode + " request is ready. Connect a real AI service to generate the result.";
+}
+</script>
+
+</body>
+</html>
